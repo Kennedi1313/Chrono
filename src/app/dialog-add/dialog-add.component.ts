@@ -3,7 +3,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 
 interface task {
   day: string,
-  name: string
+  name: string,
+  check: boolean
 }
 
 @Component({
@@ -31,7 +32,7 @@ export class DialogAddComponent implements OnInit {
 
   save() {
     this.tasks = this.getTasks();
-    this.tasks.push({day: this.data.day, name: this.name});
+    this.tasks.push({day: this.data.day, name: this.name, check: false});
     localStorage['tasks'] = JSON.stringify(this.tasks);
   }
 

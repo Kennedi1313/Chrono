@@ -6,7 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 
 interface task {
   day: string,
-  name: string
+  name: string,
+  check: boolean
 }
 
 @Component({
@@ -20,11 +21,13 @@ export class AppComponent implements OnChanges{
 
   taskList: task[] = [];
   tabs: {name: string, cod: string}[] = [
+    { name: 'Domingo', cod: 'dom' },
     { name: 'Segunda', cod: 'seg' },
-    { name: 'Terça', cod: 'ter'},
+    { name: 'Terça', cod: 'ter' },
     { name: 'Quarta', cod: 'qua' },
     { name: 'Quinta', cod: 'qui' },
-    { name: 'Sexta', cod: 'sex'}
+    { name: 'Sexta', cod: 'sex' },
+    { name: 'Sábado', cod: 'sab' }
   ];
 
   constructor(public dialog: MatDialog, media: MediaMatcher) {
@@ -54,9 +57,20 @@ export class AppComponent implements OnChanges{
   }
 
   delete(task: task) {
-    console.log(task)
     this.taskList = this.taskList.filter(t => (t.day !== task.day || t.name !== task.name))
-    console.log(this.taskList)
+    localStorage['tasks'] = JSON.stringify(this.taskList)
+  }
+
+  check(task: task) {
+    console.log(task)
+    this.taskList.map(t => {
+      if(t.day === task.day || t.name === task.name){
+        t.check = !t.check
+
+      }
+      console.log(t)
+      return t
+    });
     localStorage['tasks'] = JSON.stringify(this.taskList)
   }
 

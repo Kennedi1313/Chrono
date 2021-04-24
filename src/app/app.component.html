@@ -31,10 +31,10 @@
           <mat-selection-list class="tasks">
             <ng-container *ngFor="let t of taskList">
               <div class="item-card" *ngIf="t.day === tab.cod">
-                <mat-list-option>
+                <mat-list-option (click)="check({day: t.day, name: t.name, check: t.check})" [selected]="t.check">
                   {{t.name}}
                 </mat-list-option>
-                <button class="item-delete" mat-icon-button (click)="delete({day: t.day, name: t.name})"><mat-icon>delete</mat-icon></button>
+                <button class="item-delete" mat-icon-button (click)="delete({day: t.day, name: t.name, check: t.check})"><mat-icon>delete</mat-icon></button>
               </div>
             </ng-container>
           </mat-selection-list>
