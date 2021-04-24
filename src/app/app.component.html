@@ -1,49 +1,48 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Catalogue.me</span>
-    <span class="example-spacer"></span>
-  </mat-toolbar-row>
+<div class="content">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button (click)="drawer.toggle()" *ngIf="false"><mat-icon>menu</mat-icon></button>
+      <span class="example-spacer"></span>
+      <span>Chrono</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
 
-  <mat-toolbar-row class="title">
-    <button mat-icon-button (click)="drawer.toggle()" *ngIf="false">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>Meus cronogramas</span>
-  </mat-toolbar-row>
-</mat-toolbar>
+  <mat-sidenav-container class="container" >
+    <mat-sidenav #drawer [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="false" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-selection-list [multiple]="false">
+        <mat-list-option [value]="" selected="true">
+          Estudos
+        </mat-list-option>
+        <mat-list-option [value]="">
+          Trabalho
+        </mat-list-option>
+        <mat-list-option [value]="">
+          Exercício
+        </mat-list-option>
+        <mat-list-option [value]="">
+          Faculdade
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-sidenav>
 
-<mat-sidenav-container class="container" >
-  <mat-sidenav #drawer [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="false" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
-    <mat-selection-list [multiple]="false">
-      <mat-list-option [value]="" selected="true">
-        Estudos
-      </mat-list-option>
-      <mat-list-option [value]="">
-        Trabalho
-      </mat-list-option>
-      <mat-list-option [value]="">
-        Exercício
-      </mat-list-option>
-      <mat-list-option [value]="">
-        Faculdade
-      </mat-list-option>
-    </mat-selection-list>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-    <mat-tab-group>
-      <mat-tab *ngFor="let tab of tabs" [label]="tab.name">
-        <mat-selection-list class="tasks">
-          <ng-container *ngFor="let t of taskList">
-            <mat-list-option *ngIf="t.day === tab.cod">
-              {{t.name}}
-            </mat-list-option>
-          </ng-container>
-        </mat-selection-list>
-        <button mat-mini-fab class="add-icon" (click)="openDialog(tab.cod)" matTooltip="Adicione uma tarefa">
-          <mat-icon>add</mat-icon>
-        </button>
-      </mat-tab>
-    </mat-tab-group>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    <mat-sidenav-content>
+      <mat-tab-group animationDuration="0ms">
+        <mat-tab *ngFor="let tab of tabs" [label]="tab.name">
+          <mat-selection-list class="tasks">
+            <ng-container *ngFor="let t of taskList">
+              <div class="item-card" *ngIf="t.day === tab.cod">
+                <mat-list-option>
+                  {{t.name}}
+                </mat-list-option>
+                <button class="item-delete" mat-icon-button (click)="delete({day: t.day, name: t.name})"><mat-icon>delete</mat-icon></button>
+              </div>
+            </ng-container>
+          </mat-selection-list>
+          <button mat-fab class="add-icon" (click)="openDialog(tab.cod)" matTooltip="Adicione uma tarefa">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

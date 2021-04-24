@@ -53,5 +53,12 @@ export class AppComponent implements OnChanges{
     });
   }
 
+  delete(task: task) {
+    console.log(task)
+    this.taskList = this.taskList.filter(t => (t.day !== task.day || t.name !== task.name))
+    console.log(this.taskList)
+    localStorage['tasks'] = JSON.stringify(this.taskList)
+  }
+
   title = 'Chrono';
 }

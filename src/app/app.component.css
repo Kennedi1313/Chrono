@@ -1,9 +1,11 @@
-mat-toolbar {
-  height: 17%;
+.content{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.container{
-  height: 83%;
+.container {
+  height: 100%;
 }
 
 .example-spacer {
@@ -29,9 +31,8 @@ mat-sidenav .mat-button {
 
 .add-icon {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  margin: 1rem;
+  right: 10px;
+  bottom: 15px;
   z-index: 100;
 }
 
@@ -49,9 +50,19 @@ mat-tab-group {
 }
 
 .tasks mat-list-option {
-  margin: 0.2rem;
-  border-left: 5px solid grey;
   padding: 0;
+}
+
+.item-card {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid grey;
+  border-left: 4px solid grey;
+  margin: 0.5rem;
+}
+
+.item-delete {
+  margin: auto 0;
 }
 
 @media (max-width: 600px ) {
