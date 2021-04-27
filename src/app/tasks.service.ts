@@ -5,7 +5,7 @@ import Task from './models/task.model';
 @Injectable()
 export class TasksService {
 
-  URL_API: string = 'http://localhost:8080/tasks'
+  URL_API: string = 'https://task-api-backend.herokuapp.com/tasks'
 
   constructor(private http: HttpClient) { }
 
