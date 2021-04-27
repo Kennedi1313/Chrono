@@ -1,10 +1,11 @@
+import { TasksService } from './tasks.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -23,14 +24,20 @@ import {MatInputModule} from '@angular/material/input'
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DialogAddComponent
+    DialogAddComponent,
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -53,9 +60,10 @@ import { environment } from '../environments/environment';
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [TasksService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

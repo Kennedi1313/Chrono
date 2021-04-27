@@ -1,0 +1,26 @@
+
+  <mat-sidenav-container class="container" >
+    <mat-sidenav #drawer [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="false" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <mat-tab-group animationDuration="0ms">
+        <mat-tab *ngFor="let tab of tabs" [label]="tab.name">
+          <mat-selection-list class="tasks">
+            <ng-container *ngFor="let t of taskList">
+              <div class="item-card" *ngIf="t.day === tab.cod">
+                <mat-list-option (click)="check({groupName: t.groupName, day: t.day, name: t.name, done: t.done})" [selected]="t.done">
+                  {{t.name}}
+                </mat-list-option>
+                <button class="item-delete" mat-icon-button (click)="delete({groupName: t.groupName, day: t.day, name: t.name, done: t.done})"><mat-icon>delete</mat-icon></button>
+              </div>
+            </ng-container>
+          </mat-selection-list>
+          <button mat-fab class="add-icon" (click)="openDialog(tab.cod)" matTooltip="Adicione uma tarefa">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

@@ -1,11 +1,7 @@
+import { TasksService } from './../tasks.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-
-interface task {
-  day: string,
-  name: string,
-  check: boolean
-}
+import Task from '../models/task.model';
 
 @Component({
   selector: 'app-dialog-add',
@@ -15,25 +11,27 @@ interface task {
 export class DialogAddComponent implements OnInit {
 
   name: string = '';
-  tasks: task[] = [];
+  tasks: Task[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<DialogAddComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { day: string } ) {
+    @Inject(MAT_DIALOG_DATA) public data: { groupName: string, day: string } ,
+    private tasksService: TasksService) {
 
     }
 
   ngOnInit(): void {
   }
 
-  getTasks(): task[] {
+  getTasks(): Task[] {
     return localStorage['tasks'] ? JSON.parse(localStorage['tasks']) : [];
   }
 
   save() {
     this.tasks = this.getTasks();
-    this.tasks.push({day: this.data.day, name: this.name, check: false});
+    this.tasks.push({groupName: this.data.groupName, day: this.data.day, name: this.name, done: false});
     localStorage['tasks'] = JSON.stringify(this.tasks);
+    this.tasksService.setTasks(JSON.parse(localStorage['tasks']));
   }
 
   onNoClick(): void {
